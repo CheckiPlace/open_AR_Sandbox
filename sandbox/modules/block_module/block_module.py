@@ -225,7 +225,6 @@ class BlockModule(ModuleTemplate):
         displays a widget to adjust the mask threshold value
 
         """
-        pn.extension()
         widget = pn.widgets.FloatSlider(name='mask threshold (values smaller than the set threshold will be masked)',
                                         start=0.0, end=1.0, step=0.01, value=self.mask_threshold)
 
@@ -266,7 +265,6 @@ class BlockModule(ModuleTemplate):
         Returns:
 
         """
-        pn.extension()
         widget = pn.widgets.RadioButtonGroup(name='Model selector',
                                              options=list(self.block_dict.keys()),
                                              value=self.displayed_dataset_key,
@@ -292,7 +290,6 @@ class BlockModule(ModuleTemplate):
         Returns:
 
         """
-        pn.extension()
         widget = pn.widgets.IntSlider(name='offset top of the model ', start=-250, end=250, step=1, value=0)
 
         widget.param.watch(self._callback_top_slider, 'value', onlychanged=False)
@@ -316,7 +313,6 @@ class BlockModule(ModuleTemplate):
         Returns:
 
         """
-        pn.extension()
         widget = pn.widgets.IntSlider(name='offset bottom of the model ', start=-250, end=250, step=1, value=0)
 
         widget.param.watch(self._callback_bottom_slider, 'value', onlychanged=False)
@@ -340,7 +336,6 @@ class BlockModule(ModuleTemplate):
         Returns:
 
         """
-        pn.extension()
         widget = pn.widgets.IntSlider(name='offset the model in vertical direction ', start=-250, end=250, step=1,
                                       value=0)
 

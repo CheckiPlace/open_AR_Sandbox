@@ -3,7 +3,7 @@ import collections
 import numpy
 import threading
 import panel as pn
-pn.extension()
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import traceback
@@ -17,7 +17,8 @@ dateTimeObj = datetime.now()
 from sandbox.projector import Projector, ContourLinesModule, CmapModule
 from sandbox.sensor import Sensor
 from sandbox.markers import MarkerDetection
-
+from sandbox import panel_extension
+panel_extension()
 
 class MainThread:
     """
@@ -121,6 +122,7 @@ class MainThread:
         Returns:
 
         """
+        self.sb_params['legend_args'] = None # No information for legend
         self.sb_params['ax'] = self.projector.ax
 
         if self._loaded_frame:
@@ -177,11 +179,21 @@ class MainThread:
 
         self.sb_params['ax'].set_xlim(xmin=self.sb_params.get('extent')[0], xmax=self.sb_params.get('extent')[1])
         self.sb_params['ax'].set_ylim(ymin=self.sb_params.get('extent')[2], ymax=self.sb_params.get('extent')[3])
-
+        aruco_leg = None
         if isinstance(self.Aruco, MarkerDetection):
             _ = self.Aruco.plot_aruco(self.sb_params['ax'], self.sb_params['marker'])
             # Update of legend
-            self.sb_params['set_legend'](self.Aruco.legend_elements)
+            aruco_leg = self.Aruco.legend_elements
+        # Update legend
+        leg = self.sb_params.get('legend_args')
+        if leg is not None or aruco_leg is not None:
+            if leg is None and aruco_leg is not None:
+                self.sb_params['set_legend'](*aruco_leg)
+            elif leg is not None and aruco_leg is None:
+                self.sb_params['set_legend'](*leg)
+            else:
+                self.sb_params['set_legend'](*(leg[0]+aruco_leg[0], leg[1]+aruco_leg[1]))
+
         self.lock.acquire()
         self.projector.trigger()
         self.lock.release()

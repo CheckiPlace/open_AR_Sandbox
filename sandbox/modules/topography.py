@@ -5,6 +5,8 @@ import numpy as np
 from skimage import measure
 from matplotlib.patches import Path, PathPatch
 from .template import ModuleTemplate
+from sandbox import panel_extension
+panel_extension()
 
 
 class TopoModule(ModuleTemplate):
@@ -13,7 +15,6 @@ class TopoModule(ModuleTemplate):
     """
 
     def __init__(self, *args, extent: list = None, **kwargs):
-        pn.extension()
         self.max_height = 800
         self.center = 0
         self.min_height = -200

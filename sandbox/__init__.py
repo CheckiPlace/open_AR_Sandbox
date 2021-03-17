@@ -8,6 +8,42 @@ Created on 15/04/2020
 # Main information for all the modules to work (calibration data, projector and sensor)
 __version__ = '1.0'
 
+# Panel body setting colors and other parameters
+_panel_extension = False
+def panel_extension():
+    import panel as pn
+    css = '''
+        body {
+          margin:0px;
+          background-color: #FFFFFF;
+        }
+        .panel {
+          background-color: #000000;
+          overflow: hidden;
+        }
+        .bk.frame {
+          background-color: #FFFFFF;
+          color: #FFFFFF;
+        }
+        .bk.legend {
+          background-color: #16425B;
+          color: #CCCCCC;
+        }
+        .bk.hot {
+          background-color: #2896A5;
+          color: #CCCCCC;
+        }
+        .bk.profile {
+          background-color: #40C1C7;
+          color: #CCCCCC;
+        }
+        .bk.colorbar {
+          background-color: #2896A5;
+          color: #CCCCCC;
+        '''
+    pn.extension('vtk', raw_css=[css])
+    _panel_extension = True
+panel_extension()
 import os
 _package_dir = os.path.dirname(__file__)
 _calibration_dir = os.path.abspath(os.path.dirname(__file__) + '/../notebooks/calibration_files/')+os.sep

@@ -3,9 +3,9 @@ import matplotlib
 from matplotlib.colors import LightSource
 import numpy
 import panel as pn
-
-
+from sandbox import panel_extension
 from .template import ModuleTemplate
+panel_extension()
 
 
 class GradientModule(ModuleTemplate):
@@ -14,7 +14,6 @@ class GradientModule(ModuleTemplate):
     """
     def __init__(self, extent: list = None):
         # call parents' class init, use greyscale colormap as standard and extreme color labeling
-        pn.extension()
         if extent is not None:
             self.vmin = extent[4]
             self.vmax = extent[5]

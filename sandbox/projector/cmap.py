@@ -3,7 +3,8 @@ import matplotlib.colors as mcolors
 import copy
 import panel as pn
 import weakref
-pn.extension()
+from sandbox import panel_extension
+panel_extension()
 
 
 class CmapModule:

@@ -1,5 +1,6 @@
 from warnings import warn
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import numpy
 import panel as pn
 
@@ -7,6 +8,8 @@ from sandbox.modules.template import ModuleTemplate
 from sandbox.modules.gempy.utils import get_scale, Grid
 from sandbox.modules.gempy.plot import plot_gempy
 from sandbox.modules.gempy.example_models import create_model_dict, all_models
+from sandbox import panel_extension
+panel_extension()
 
 import pandas as pd
 # TODO: SettingWithCopyWarning appears when using LoadTopoModule with arucos
@@ -36,7 +39,6 @@ class GemPyModule(ModuleTemplate):
             None
 
         """
-        pn.extension('vtk')  # TODO: check if all the usages of extensions are actually changing something
         self.lock = None  # For locking the multithreading while using bokeh server
         if load_examples and len(name_example) > 0:
             self.model_dict = create_model_dict(name_example, **kwargs)
@@ -201,6 +203,7 @@ class GemPyModule(ModuleTemplate):
         sb_params['active_shading'] = False
         sb_params['extent'] = self._model_extent
         sb_params['del_contour'] = not self.show_boundary
+        sb_params['legend_args'] = self.legend_elements
 
         return sb_params
 
@@ -227,6 +230,14 @@ class GemPyModule(ModuleTemplate):
         self.setup(self.frame)
         print("New gempy model loaded")
         return True
+
+    @property
+    def legend_elements(self):
+        """Generate handles and labels to create legend of model"""
+        markers = [Line2D([0, 0], [0, 0], color=color, marker='o',
+                                  linestyle='') for color in self.geo_model._surfaces.df['color'].values]
+        labels = list(self.geo_model._surfaces.df['surface'].values)
+        return (markers, labels)
 
     @property
     def model_sections_dict(self):

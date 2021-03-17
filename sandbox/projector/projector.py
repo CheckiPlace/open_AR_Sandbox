@@ -5,41 +5,12 @@ from matplotlib.figure import Figure
 from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 import json
-from sandbox import _calibration_dir
+from sandbox import _calibration_dir, panel_extension
+panel_extension()
 
 
 class Projector(object):
     dpi = 100  # make sure that figures can be displayed pixel-precise
-
-    css = '''
-    body {
-      margin:0px;
-      background-color: #FFFFFF;
-    }
-    .panel {
-      background-color: #000000;
-      overflow: hidden;
-    }
-    .bk.frame {
-      background-color: #FFFFFF;
-      color: #FFFFFF;
-    }
-    .bk.legend {
-      background-color: #16425B;
-      color: #CCCCCC;
-    }
-    .bk.hot {
-      background-color: #2896A5;
-      color: #CCCCCC;
-    }
-    .bk.profile {
-      background-color: #40C1C7;
-      color: #CCCCCC;
-    }
-    .bk.colorbar {
-      background-color: #2896A5;
-      color: #CCCCCC;
-    '''
 
     def __init__(self, calibprojector: str = None, use_panel: bool = True, p_width=1280, p_height=800,
                  show_colorbar: bool = False, position_colorbar: str = "vertical",
@@ -120,9 +91,7 @@ class Projector(object):
 
         The figure can be accessed by its attribute. It will be 'deactivated' to prevent random apperance in notebooks.
         """
-        pn.extension(raw_css=[self.css])
         # Create a panel object and serve it within an external bokeh browser that will be opened in a separate window
-
         # In this special case, a "tight" layout would actually add again white space to the plt canvas,
         # which was already cropped by specifying limits to the axis
 

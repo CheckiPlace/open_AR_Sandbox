@@ -7,7 +7,8 @@ import matplotlib
 from matplotlib.figure import Figure
 from .template import ModuleTemplate
 from .load_save_topography import LoadSaveTopoModule
-from sandbox import _test_data
+from sandbox import _test_data, panel_extension
+panel_extension()
 
 
 class LandslideSimulation(ModuleTemplate):
@@ -16,7 +17,6 @@ class LandslideSimulation(ModuleTemplate):
     """
     #TODO: set the vmix and vmax of the landslides frames constant
     def __init__(self, *args, extent: list = None, **kwargs):
-        pn.extension()
         if extent is not None:
             self.vmin = extent[4]
             self.vmax = extent[5]

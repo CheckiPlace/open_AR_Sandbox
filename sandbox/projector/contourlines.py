@@ -1,8 +1,10 @@
 import numpy
 import matplotlib
+import warnings
 import panel as pn
-
-pn.extension()
+from sandbox import panel_extension
+warnings.filterwarnings("ignore", message="No contour levels were found")
+panel_extension()
 
 
 class ContourLinesModule:

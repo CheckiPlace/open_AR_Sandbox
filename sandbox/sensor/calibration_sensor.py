@@ -1,14 +1,14 @@
 import threading
 import panel as pn
-pn.extension()
+
 from sandbox.sensor import Sensor
 from sandbox.projector import Projector
-from sandbox import _calibration_dir
+from sandbox import _calibration_dir, panel_extension
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib.figure import Figure
-
+panel_extension()
 
 class CalibSensor:  # TODO: include automatic
     """Module to calibrate the sensor"""

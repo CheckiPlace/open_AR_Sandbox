@@ -7,8 +7,9 @@ import pandas as pd
 import skimage.transform
 
 from .template import ModuleTemplate
-from sandbox import _test_data
+from sandbox import _test_data, panel_extension
 from matplotlib.figure import Figure
+panel_extension()
 
 
 class LoadSaveTopoModule(ModuleTemplate):
@@ -26,7 +27,6 @@ class LoadSaveTopoModule(ModuleTemplate):
     """
     def __init__(self, extent: list = None, **kwargs):
         # call parents' class init, use greyscale colormap as standard and extreme color labeling
-        pn.extension()
         if extent is not None:
             self.vmin = extent[4]
             self.vmax = extent[5]

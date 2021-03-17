@@ -151,10 +151,12 @@ class MarkerDetection:
         if len(self.df_aruco_position) > 0:
             df = self.df_aruco_position.loc[self.df_aruco_position.is_inside_box, ("box_x", "box_y")]
 
-            legend_elements = [Line2D([0], [0], marker='o', color=self.aruco_color, label='id %s'% str(df.index[i]),
+            legend_elements = [Line2D([0], [0], marker='o', color=self.aruco_color,
                               markerfacecolor='none') for i in range(len(df))]
-
-            return legend_elements
+            labels = ['id ' + str(i) for i in df.index.to_list()]
+            return (legend_elements, labels)
+        else:
+            return None
 
     # Widgets for aruco plotting
 
